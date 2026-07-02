@@ -1,0 +1,288 @@
+@font-face {
+  font-family: Roboto;
+  src: url(../fonts/Roboto-VariableFont_wdth\,wght.woff2) format('woff2');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --text: #222;
+  --main: aliceblue;
+}
+
+html {
+  font-size: 10px;
+  color: var(--text);
+}
+
+body {
+  background-image: repeating-linear-gradient(var(--main) 0 0.2rem, var(--text) 0 0.4rem);
+}
+
+dialog {
+  background-color: var(--main);
+  border: none;
+}
+
+.dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48rem;
+  padding: 2.4rem;
+}
+
+.dialog label,
+.dialog input {
+  font-size: 1.8rem;
+}
+
+.dialog-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.dialog-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.8rem;
+}
+
+h3 {
+  margin: 2rem 0 0.4rem;
+  font-size: 2.2rem;
+}
+
+#date-of-study-from,
+#date-of-study-to,
+#date-of-work-from,
+#date-of-work-to {
+  width: 6.8rem;
+}
+
+.message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 4.4rem 0 2rem;
+  width: 40rem;
+}
+
+.message form,
+.message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.message form {
+  gap: 3.6rem;
+}
+
+.message-container {
+  gap: 1.2rem;
+}
+
+.success-message {
+  font-size: 2.6rem;
+}
+
+.notice-message {
+  font-size: 1.8rem;
+}
+
+.close-btn {
+  background-color: var(--main);
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60rem;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 8rem 0;
+}
+
+h1 {
+  font-size: 3.6rem;
+  color: var(--main);
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 2.8rem;
+  margin: 4rem 0;
+}
+
+button {
+  padding: 0.8rem 1.6rem;
+  font-weight: 600;
+  font-size: 2rem;
+  border: none;
+  border-radius: 0.8rem;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: var(--main);
+}
+
+.submit-btn {
+  color: var(--main);
+  background-color: var(--text);
+}
+
+.content {
+  width: 100%;
+  padding: 2rem 0;
+  background-color: var(--main);
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  margin: 4rem;
+}
+
+section div {
+  display: flex;
+  gap: 0.4rem;
+}
+
+section p {
+  font-size: 2.2rem;
+  line-height: 1.4;
+}
+
+h2 {
+  margin-bottom: 0.8rem;
+  font-size: 2.6rem;
+}
+
+.user-name {
+  height: 4.4rem;
+  margin-bottom: 3.2rem;
+  font-size: 3.6rem;
+  border-bottom: 0.2rem solid var(--text);
+}
+
+.link-container {
+  margin-top: 2.8rem;
+}
+
+.link {
+  font-size: 1.6rem;
+  color: var(--text);
+  text-decoration: none;
+}
+/* For smartphones in portrait mode */
+@media screen and (orientation: portrait) and (max-width: 47.99em) {
+  html {
+    font-size: 5px;
+  }
+}
+
+@media screen and (orientation: portrait) and (min-width: 22.5em) {
+  html {
+    font-size: 5.5px;
+  }
+}
+
+@media screen and (orientation: portrait) and (min-width: 23.4em) {
+  html {
+    font-size: 5.75px;
+  }
+}
+
+@media screen and (orientation: portrait) and (min-width: 24.3em) {
+  html {
+    font-size: 6px;
+  }
+}
+
+@media screen and (orientation: portrait) and (min-width: 25.75em) {
+  html {
+    font-size: 6.25px;
+  }
+}
+
+@media screen and (orientation: portrait) and (min-width: 26.75em) {
+  html {
+    font-size: 6.5px;
+  }
+}
+/* For tablets in portrait mode */
+@media screen and (orientation: portrait) and (min-width: 48em) {
+  html {
+    font-size: 10px;
+  }
+}
+/* For smartphones in landscape mode */
+@media screen and (orientation: landscape) {
+  html {
+    font-size: 6.5px;
+  }
+
+  .wrapper {
+    height: initial;
+  }
+}
+
+@media screen and (orientation: landscape) and (min-width: 41.6em) {
+  html {
+    font-size: 7.5px;
+  }
+}
+
+@media screen and (orientation: landscape) and (min-width: 50em) {
+  html {
+    font-size: 7.75px;
+  }
+}
+
+@media screen and (orientation: landscape) and (min-width: 52.75em) {
+  html {
+    font-size: 8px;
+  }
+}
+
+@media screen and (orientation: landscape) and (min-width: 55.75em) {
+  html {
+    font-size: 8.5px;
+  }
+}
+
+@media screen and (orientation: landscape) and (min-width: 58em) {
+  html {
+    font-size: 8.75px;
+  }
+}
+/* For tablets in landscape mode */
+@media screen and (orientation: landscape) and (min-width: 64em) {
+  html {
+    font-size: 10px;
+  }
+}
+/* For laptops and desktops */
+@media screen and (orientation: landscape) and (min-width: 88em) {
+  .dialog {
+    top: 0;
+    left: 0;
+    transform: initial;
+  }
+
+  .wrapper {
+    height: 100vh;
+  }
+}
