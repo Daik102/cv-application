@@ -12,6 +12,7 @@
 
 :root {
   --text: #222;
+  --bg: #777;
   --main: aliceblue;
 }
 
@@ -21,7 +22,8 @@ html {
 }
 
 body {
-  background-image: repeating-linear-gradient(var(--main) 0 0.2rem, var(--text) 0 0.4rem);
+  background-image: linear-gradient(var(--main) 50%, var(--bg) 50%);
+  background-size: 100% 4px;
 }
 
 dialog {
