@@ -1,9 +1,7 @@
-import Resume from './components/Resume'
+import { Resume }  from './components/Resume'
 
-function App() {
+export function App() {
   return (
     <Resume></Resume>
   );
 }
-
-export default App
