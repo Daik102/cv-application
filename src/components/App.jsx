@@ -1,24 +1,23 @@
 import { useState } from 'react'
 import '../styles/App.css'
 
+const initialFormState = {
+  name: '',
+  email: '',
+  phone: '',
+  schoolName: '',
+  titleOfStudy: '',
+  dateOfStudyFrom: '',
+  dateOfStudyTo: '',
+  companyName: '',
+  positionTitle: '',
+  mainResponsibilities: '',
+  dateOfWorkFrom: '',
+  dateOfWorkTo: '',
+}
+
 function App() {
-  const [info, setInfo] = useState({
-    // Personal Info
-    name: '',
-    email: '',
-    phone: '',
-    // Education
-    schoolName: '',
-    titleOfStudy: '',
-    dateOfStudyFrom: '',
-    dateOfStudyTo: '',
-    // Career
-    companyName: '',
-    positionTitle: '',
-    mainResponsibilities: '',
-    dateOfWorkFrom: '',
-    dateOfWorkTo: '',
-  });
+  const [info, setInfo] = useState(initialFormState);
 
   function handleDialog(mode, action) {
     if (mode === 'edit') {
@@ -37,6 +36,8 @@ function App() {
       } else {
         message.close();
       }
+    } else if (mode === 'reset') {
+      setInfo(initialFormState);
     }
   }
 
@@ -47,7 +48,7 @@ function App() {
       ...prev, [name]: value
     }));
   }
-
+  
   return (
     <>
       <dialog className='dialog'>
@@ -55,33 +56,33 @@ function App() {
           <div className='dialog-section'>
             <div>
               <label htmlFor="name">Name: </label>
-              <input type="text" name="name" id="name" maxLength={30} onChange={handleInput} />
+              <input type="text" name="name" value={info.name} id="name" maxLength={30} onChange={handleInput} />
             </div>
             <div>
               <label htmlFor="email">Email: </label>
-              <input type="email" name="email" id="email" maxLength={30} onChange={handleInput} />
+              <input type="email" name="email" value={info.email} id="email" maxLength={30} onChange={handleInput} />
             </div>
             <div>
               <label htmlFor="phone">Phone: </label>
-              <input type="tel" name="phone" id="phone" maxLength={15} onChange={handleInput} />
+              <input type="tel" name="phone" value={info.phone} id="phone" maxLength={15} onChange={handleInput} />
             </div>
           </div>
           <div className='dialog-section'>
             <h3>Educational experience</h3>
             <div>
               <label htmlFor="school-name">School name: </label>
-              <input type="text" name="schoolName" id="school-name" maxLength={30} onChange={handleInput} />
+              <input type="text" name="schoolName" value={info.schoolName} id="school-name" maxLength={30} onChange={handleInput} />
             </div>
             <div>
               <label htmlFor="title-of-study">Title of study: </label>
-              <input type="text" name="titleOfStudy" id="title-of-study" maxLength={30} onChange={handleInput} />
+              <input type="text" name="titleOfStudy" value={info.titleOfStudy} id="title-of-study" maxLength={30} onChange={handleInput} />
             </div>
             <div>
               <div>
                 <label htmlFor="date-of-study-from">Date of study: From </label>
-                <input type="number" name="dateOfStudyFrom" id="date-of-study-from" onChange={handleInput} />
+                <input type="number" name="dateOfStudyFrom" value={info.dateOfStudyFrom} id="date-of-study-from" onChange={handleInput} />
                 <label htmlFor="date-of-study-to"> To </label>
-                <input type="number" name="dateOfStudyTo" id="date-of-study-to" onChange={handleInput} />
+                <input type="number" name="dateOfStudyTo" value={info.dateOfStudyTo} id="date-of-study-to" onChange={handleInput} />
               </div>
             </div>
           </div>
@@ -89,27 +90,28 @@ function App() {
             <h3>Practical experience</h3>
             <div>
               <label htmlFor="company-name">Company name: </label>
-              <input type="text" name="companyName" id="company-name" maxLength={30} onChange={handleInput} />
+              <input type="text" name="companyName" value={info.companyName} id="company-name" maxLength={30} onChange={handleInput} />
             </div>
             <div>
               <label htmlFor="position-title">Position title: </label>
-              <input type="text" name="positionTitle" id="position-title" maxLength={30} onChange={handleInput} />
+              <input type="text" name="positionTitle" value={info.positionTitle} id="position-title" maxLength={30} onChange={handleInput} />
             </div>
             <div>
               <label htmlFor="main-responsibilities">Main responsibilities: </label>
-              <input type="text" name="mainResponsibilities" id="main-responsibilities" maxLength={30} onChange={handleInput} />
+              <input type="text" name="mainResponsibilities" value={info.mainResponsibilities} id="main-responsibilities" maxLength={30} onChange={handleInput} />
             </div>
             <div>
               <div>
                 <label htmlFor="date-of-work-from">Date of work: From </label>
-                <input type="number" name="dateOfWorkFrom" id="date-of-work-from" onChange={handleInput} />
+                <input type="number" name="dateOfWorkFrom" value={info.dateOfWorkFrom} id="date-of-work-from" onChange={handleInput} />
                 <label htmlFor="date-of-work-to"> To </label>
-                <input type="number" name="dateOfWorkTo" id="date-of-work-to" onChange={handleInput} />
+                <input type="number" name="dateOfWorkTo" value={info.dateOfWorkTo} id="date-of-work-to" onChange={handleInput} />
               </div>
             </div>
           </div>
           <div className='dialog-btn-container'>
-            <button className='edit-btn' type='button' onClick={() => handleDialog('edit', 'close')}>Edit</button>
+            <button className='do-edit-btn' type='button' onClick={() => handleDialog('edit', 'close')}>Edit</button>
+            <button className='reset-btn' type='button' onClick={() => handleDialog('reset')}>Reset</button>
           </div>
         </form>
       </dialog>

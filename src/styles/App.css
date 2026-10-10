@@ -69,6 +69,11 @@ h3 {
   width: 6.8rem;
 }
 
+.do-edit-btn,
+.reset-btn {
+  background-color: var(--main);
+}
+
 .message {
   position: absolute;
   top: 50%;
