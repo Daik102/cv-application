@@ -13,6 +13,7 @@
   --text: #222;
   --bg: #777;
   --main: aliceblue;
+  --backdrop: rgba(0, 0, 0, 0.4);
 }
 
 html {
@@ -37,15 +38,57 @@ dialog {
 }
 
 .edit-dialog {
-  margin: 0 auto;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 48rem;
-  padding: 2.4rem;
+  max-width: 44rem;
+  min-height: 48rem;
+  margin: 0;
+  padding: 2.4rem 0.4rem 2.4rem 2rem;
+  transform: translateX(-100%);
+  transition: transform 0.4s ease-in-out, 
+              overlay 0.4s ease-in-out allow-discrete, 
+              display 0.4s ease-in-out allow-discrete;
+}
+
+/* When the dialog is open, slide it into view */
+.edit-dialog[open] {
+  transform: translateX(0);
+}
+
+/* Starting style for the entry animation */
+@starting-style {
+  .edit-dialog[open] {
+    transform: translateX(-100%);
+  }
+}
+
+.edit-dialog::backdrop {
+  background-color: var(--backdrop);
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out, 
+              overlay 0.4s ease-in-out allow-discrete, 
+              display 0.4s ease-in-out allow-discrete;
+}
+
+.edit-dialog[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  .edit-dialog[open]::backdrop {
+    opacity: 0;
+  }
 }
 
 .edit-dialog label,
 .edit-dialog input {
   font-size: 1.8rem;
+}
+
+.edit-dialog input {
+  padding: 0 0.2rem;
 }
 
 .edit-section {
@@ -79,9 +122,10 @@ h3 {
 
 .message-dialog {
   margin: auto;
-  padding: 4.4rem 0 2rem;
+  padding: 9.6rem 0 2.4rem;
   width: 100%;
   max-width: 40rem;
+  height: 28rem;
 }
 
 .message-dialog form,
@@ -92,11 +136,13 @@ h3 {
 }
 
 .message-dialog form {
-  gap: 3.6rem;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .message-container {
   gap: 1.2rem;
+  
 }
 
 .success-message {
@@ -117,7 +163,7 @@ h3 {
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 60rem;
+  max-width: 56rem;
   min-height: 100vh;
   min-height: 100svh;
   margin: 0 auto;
@@ -133,7 +179,7 @@ h1 {
   display: flex;
   justify-content: center;
   gap: 2.8rem;
-  margin: 4rem 0;
+  margin: 4rem 0 2.4rem;
 }
 
 button {
@@ -156,31 +202,32 @@ button {
 
 .content {
   width: 100%;
-  padding: 2rem 4rem;
+  padding: 2rem 3.6rem;
   background-color: var(--main);
 }
 
 section {
   display: flex;
   flex-direction: column;
-  margin: 4rem 0;
+  gap: 0.4rem;
+  margin: 4.8rem 0;
 }
 
 section div {
   display: flex;
   flex-wrap: nowrap;
-  gap: 0.4rem;
+  gap: 0.6rem;
 }
 
 section p {
-  font-size: 2.2rem;
+  font-size: 2rem;
   line-height: 1.4;
   text-wrap: nowrap;
 }
 
 h2 {
   margin-bottom: 0.8rem;
-  font-size: 2.6rem;
+  font-size: 2.4rem;
 }
 
 .user-info {
@@ -191,13 +238,17 @@ h2 {
 
 .user-name {
   height: 4.4rem;
-  margin-bottom: 3.2rem;
-  font-size: 3.6rem;
+  margin-bottom: 2rem;
+  font-size: 3.2rem;
   border-bottom: 0.2rem solid var(--text);
 }
 
+.user-date {
+  width: 4.8rem;
+}
+
 .footer {
-  margin-top: 2.8rem;
+  margin-top: 2.4rem;
 }
 
 .link {
@@ -218,15 +269,11 @@ h2 {
   html {
     font-size: 62.5%;
   }
-
-  .edit-dialog {
-    margin: auto;
-  }
 }
 
-/* Desktops */
-@media screen and (min-width: 88em) {
+/* Landscape */
+@media screen and (orientation: landscape) {
   .edit-dialog {
-    margin: auto 0;
+    min-height: 100vh;
   }
 }
