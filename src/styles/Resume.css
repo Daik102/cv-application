@@ -7,7 +7,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 
 :root {
@@ -17,8 +16,14 @@
 }
 
 html {
-  font-size: 10px;
+  font-size: 50%;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
   color: var(--text);
+}
+
+input,
+button {
+  font-family: inherit;
 }
 
 body {
@@ -31,27 +36,25 @@ dialog {
   border: none;
 }
 
-.dialog {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 48rem;
+.edit-dialog {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 48rem;
   padding: 2.4rem;
 }
 
-.dialog label,
-.dialog input {
+.edit-dialog label,
+.edit-dialog input {
   font-size: 1.8rem;
 }
 
-.dialog-section {
+.edit-section {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
 }
 
-.dialog-btn-container {
+.edit-btn-container {
   display: flex;
   justify-content: center;
   margin-top: 2.8rem;
@@ -74,23 +77,21 @@ h3 {
   background-color: var(--main);
 }
 
-.message {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.message-dialog {
+  margin: auto;
   padding: 4.4rem 0 2rem;
-  width: 40rem;
+  width: 100%;
+  max-width: 40rem;
 }
 
-.message form,
+.message-dialog form,
 .message-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.message form {
+.message-dialog form {
   gap: 3.6rem;
 }
 
@@ -113,15 +114,18 @@ h3 {
 .wrapper {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 60rem;
-  height: 100vh;
+  width: 100%;
+  max-width: 60rem;
+  min-height: 100vh;
+  min-height: 100svh;
   margin: 0 auto;
-  padding: 8rem 0;
+  padding: 4rem 0;
 }
 
 h1 {
-  font-size: 4.4rem;
+  font-size: 4rem;
   color: var(--main);
 }
 
@@ -152,29 +156,37 @@ button {
 
 .content {
   width: 100%;
-  padding: 2rem 0;
+  padding: 2rem 4rem;
   background-color: var(--main);
 }
 
 section {
   display: flex;
   flex-direction: column;
-  margin: 4rem;
+  margin: 4rem 0;
 }
 
 section div {
   display: flex;
+  flex-wrap: nowrap;
   gap: 0.4rem;
 }
 
 section p {
   font-size: 2.2rem;
   line-height: 1.4;
+  text-wrap: nowrap;
 }
 
 h2 {
   margin-bottom: 0.8rem;
   font-size: 2.6rem;
+}
+
+.user-info {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .user-name {
@@ -184,7 +196,7 @@ h2 {
   border-bottom: 0.2rem solid var(--text);
 }
 
-.link-container {
+.footer {
   margin-top: 2.8rem;
 }
 
@@ -193,103 +205,28 @@ h2 {
   color: var(--text);
   text-decoration: none;
 }
-/* For smartphones in portrait mode */
-@media screen and (orientation: portrait) and (max-width: 47.99em) {
+
+/* Middle and Large Smartphones */
+@media screen and (min-width: 24.25em) {
   html {
-    font-size: 5px;
+    font-size: 56.25%;
   }
 }
 
-@media screen and (orientation: portrait) and (min-width: 22.5em) {
+/* Tablets */
+@media screen and (min-width: 48em) {
   html {
-    font-size: 5.5px;
+    font-size: 62.5%;
+  }
+
+  .edit-dialog {
+    margin: auto;
   }
 }
 
-@media screen and (orientation: portrait) and (min-width: 23.4em) {
-  html {
-    font-size: 5.75px;
-  }
-}
-
-@media screen and (orientation: portrait) and (min-width: 24.3em) {
-  html {
-    font-size: 6px;
-  }
-}
-
-@media screen and (orientation: portrait) and (min-width: 25.75em) {
-  html {
-    font-size: 6.25px;
-  }
-}
-
-@media screen and (orientation: portrait) and (min-width: 26.75em) {
-  html {
-    font-size: 6.5px;
-  }
-}
-/* For tablets in portrait mode */
-@media screen and (orientation: portrait) and (min-width: 48em) {
-  html {
-    font-size: 10px;
-  }
-}
-/* For smartphones in landscape mode */
-@media screen and (orientation: landscape) {
-  html {
-    font-size: 6.5px;
-  }
-
-  .wrapper {
-    height: initial;
-  }
-}
-
-@media screen and (orientation: landscape) and (min-width: 41.6em) {
-  html {
-    font-size: 7.5px;
-  }
-}
-
-@media screen and (orientation: landscape) and (min-width: 50em) {
-  html {
-    font-size: 7.75px;
-  }
-}
-
-@media screen and (orientation: landscape) and (min-width: 52.75em) {
-  html {
-    font-size: 8px;
-  }
-}
-
-@media screen and (orientation: landscape) and (min-width: 55.75em) {
-  html {
-    font-size: 8.5px;
-  }
-}
-
-@media screen and (orientation: landscape) and (min-width: 58em) {
-  html {
-    font-size: 8.75px;
-  }
-}
-/* For tablets in landscape mode */
-@media screen and (orientation: landscape) and (min-width: 64em) {
-  html {
-    font-size: 10px;
-  }
-}
-/* For laptops and desktops */
-@media screen and (orientation: landscape) and (min-width: 88em) {
-  .dialog {
-    top: 0;
-    left: 0;
-    transform: initial;
-  }
-
-  .wrapper {
-    height: 100vh;
+/* Desktops */
+@media screen and (min-width: 88em) {
+  .edit-dialog {
+    margin: auto 0;
   }
 }
