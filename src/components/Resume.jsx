@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import '../styles/Resume.css'
 
 const initialFormState = {
@@ -16,170 +16,174 @@ const initialFormState = {
   dateOfWorkTo: '',
 }
 
-function Resume() {
-  const [info, setInfo] = useState(initialFormState);
-  const [errors, setErrors] = useState(true);
+export function Resume() {
+  const [info, setInfo] = useState(() => {
+    const savedInfo = localStorage.getItem('info');
+    return savedInfo ? JSON.parse(savedInfo) : initialFormState;
+  });
 
-  function handleDialog(mode, action, e) {
-    if (mode === 'edit') {
-      const dialog = document.querySelector('.dialog');
+  //const [errors, setErrors] = useState(true);
+  const editDialogRef = useRef(null);
+  const messageDialogRef = useRef(null);
 
-      if (action === 'open') {
-        dialog.showModal();
-      } else {
-        dialog.close();
-      }
-    } else if (mode === 'submit') {
-      const message = document.querySelector('.message');
+  useEffect(() => {
+    localStorage.setItem('info', JSON.stringify(info));
+  }, [info]);
 
-      if (action === 'open') {
-        e.preventDefault();
-        console.log(Object.keys(validationErrors).length);
-        const c = document.querySelector('.user-name');
-        console.log(a.validity);
-        if (a.validity.valueMissing) {
-          console.log('hey');
-          
-          c.reportValidity();
-          return;
-        }
-
-        let validationErrors = {};
-
-        if (!info.userName.trim()) {
-          validationErrors.userName = "Name is strictly required!";
-        }
-
-        if (Object.keys(validationErrors).length > 0) {
-          setErrors(validationErrors);
-          return;
-        }
-
-        message.showModal();
-      } else {
-        message.close();
-      }
-    } else if (mode === 'reset') {
-      setInfo(initialFormState);
-    }
-  }
-
-  function handleInput(e) {
+  const handleInput = (e) => {
     const { name, value } = e.target;
-    
+    /*
     if (!e.target.validity.valueMissing) {
       setErrors(false);
     } else {
       setErrors(true);
     }
-
+    */
     setInfo((prev) => ({
       ...prev, [name]: value
     }));
+  };
+
+  const handleEdit = (action) => {
+    if (action === 'open') {
+      editDialogRef.current.showModal();
+    } else {
+      editDialogRef.current.close();
+    }
+  };
+
+  const handleSubmit = (action, e) => {
+    if (action === 'open') {
+      e.preventDefault();
+      /*
+      const c = document.querySelector('.user-name');
+      if (a.validity.valueMissing) {
+        c.reportValidity();
+        return;
+      }
+
+      let validationErrors = {};
+
+      if (!info.userName.trim()) {
+        validationErrors.userName = "Name is strictly required!";
+      }
+
+      if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+        return;
+      }
+      */
+      messageDialogRef.current.showModal();
+    } else {
+      messageDialogRef.current.close();
+      setInfo(initialFormState);
+    }
   }
-  console.log(errors);
+
   return (
     <>
-      <dialog className="dialog">
-        <form id="cv-editor" onSubmit={(e) => handleDialog('submit', 'open', e)}>
-          <div className="dialog-section">
+      <dialog ref={editDialogRef} className="edit-dialog">
+        <form id="editor" onSubmit={(e) => handleSubmit('open', e)}>
+          <div className="edit-section">
             <div>
               <label htmlFor="user-name">Name: </label>
-              <input type="text" name="userName" value={info.userName} id="user-name" maxLength={30} onChange={handleInput} />
+              <input type="text" name="userName" value={info.userName} id="user-name" onChange={handleInput} />
             </div>
             <div>
               <label htmlFor="email">Email: </label>
-              <input type="email" name="email" value={info.email} id="email" maxLength={30} onChange={handleInput} />
+              <input type="email" name="email" value={info.email} id="email" onChange={handleInput} />
             </div>
             <div>
               <label htmlFor="phone">Phone: </label>
               <input type="tel" name="phone" value={info.phone} id="phone" maxLength={15} onChange={handleInput} />
             </div>
           </div>
-          <div className="dialog-section">
+          <div className="edit-section">
             <h3>Educational experience</h3>
             <div>
               <label htmlFor="school-name">School name: </label>
-              <input type="text" name="schoolName" value={info.schoolName} id="school-name" maxLength={30} onChange={handleInput} />
+              <input type="text" name="schoolName" value={info.schoolName} id="school-name" onChange={handleInput} />
             </div>
             <div>
               <label htmlFor="title-of-study">Title of study: </label>
-              <input type="text" name="titleOfStudy" value={info.titleOfStudy} id="title-of-study" maxLength={30} onChange={handleInput} />
+              <input type="text" name="titleOfStudy" value={info.titleOfStudy} id="title-of-study" onChange={handleInput} />
             </div>
             <div>
               <div>
                 <label htmlFor="date-of-study-from">Date of study: From </label>
-                <input type="number" name="dateOfStudyFrom" value={info.dateOfStudyFrom} id="date-of-study-from" onChange={handleInput} />
+                <input type="number" name="dateOfStudyFrom" value={info.dateOfStudyFrom} id="date-of-study-from" min={1970} max={2030} onChange={handleInput} />
                 <label htmlFor="date-of-study-to"> To </label>
-                <input type="number" name="dateOfStudyTo" value={info.dateOfStudyTo} id="date-of-study-to" onChange={handleInput} />
+                <input type="number" name="dateOfStudyTo" value={info.dateOfStudyTo} id="date-of-study-to" min={1970} max={2030} onChange={handleInput} />
               </div>
             </div>
           </div>
-          <div className="dialog-section">
+          <div className="edit-section">
             <h3>Practical experience</h3>
             <div>
               <label htmlFor="company-name">Company name: </label>
-              <input type="text" name="companyName" value={info.companyName} id="company-name" maxLength={30} onChange={handleInput} />
+              <input type="text" name="companyName" value={info.companyName} id="company-name" onChange={handleInput} />
             </div>
             <div>
               <label htmlFor="position-title">Position title: </label>
-              <input type="text" name="positionTitle" value={info.positionTitle} id="position-title" maxLength={30} onChange={handleInput} />
+              <input type="text" name="positionTitle" value={info.positionTitle} id="position-title" onChange={handleInput} />
             </div>
             <div>
               <label htmlFor="main-responsibilities">Main responsibilities: </label>
-              <input type="text" name="mainResponsibilities" value={info.mainResponsibilities} id="main-responsibilities" maxLength={30} onChange={handleInput} />
+              <input type="text" name="mainResponsibilities" value={info.mainResponsibilities} id="main-responsibilities" onChange={handleInput} />
             </div>
             <div>
               <div>
                 <label htmlFor="date-of-work-from">Date of work: From </label>
-                <input type="number" name="dateOfWorkFrom" value={info.dateOfWorkFrom} id="date-of-work-from" onChange={handleInput} />
+                <input type="number" name="dateOfWorkFrom" value={info.dateOfWorkFrom} id="date-of-work-from" min={1970} max={2030} onChange={handleInput} />
                 <label htmlFor="date-of-work-to"> To </label>
-                <input type="number" name="dateOfWorkTo" value={info.dateOfWorkTo} id="date-of-work-to" onChange={handleInput} />
+                <input type="number" name="dateOfWorkTo" value={info.dateOfWorkTo} id="date-of-work-to" min={1970} max={2030} onChange={handleInput} />
               </div>
             </div>
           </div>
-          <div className="dialog-btn-container">
-            <button className="do-edit-btn" type="button" onClick={() => handleDialog('edit', 'close')}>Edit</button>
-            <button className="reset-btn" type="button" onClick={() => handleDialog('reset')}>Reset</button>
+          <div className="edit-btn-container">
+            <button className="do-edit-btn" type="button" onClick={() => handleEdit('close')}>Edit</button>
+            <button className="reset-btn" type="button" onClick={() => setInfo(initialFormState)}>Reset</button>
           </div>
         </form>
       </dialog>
-      <dialog className="message">
+      <dialog ref={messageDialogRef} className="message-dialog">
         <form>
           <div className="message-container">
             <p className="success-message">Successfully Submitted!</p>
-            <p className="notice-message">(Don't worry, this is a practice site.)</p>
+            <p className="notice-message">(Don't worry, a practice site.)</p>
           </div>
-          <button className="close-btn" type="button" onClick={() => handleDialog('submit', 'close')}>Close</button>
+          <button className="close-btn" type="button" onClick={() => handleSubmit('close')}>Close</button>
         </form>
       </dialog>
       <div className="wrapper">
-        <h1>Odin CV Application</h1>
-        <div className="btn-container">
-          <button className="edit-btn" type="button" onClick={() => handleDialog('edit', 'open')}>Edit</button>
-          <button className="submit-btn" type="submit" form="cv-editor">Submit</button>
-        </div>
-        <div className="content">
-          <section className="general-section">
-          <h2 className="user-name">{info.userName}</h2>
-          <div>
-            <p>Email: </p>
-            <p>{info.email}</p>
+        <header>
+          <h1>Odin CV Application</h1>
+          <div className="btn-container">
+            <button className="edit-btn" type="button" onClick={() => handleEdit('open')}>Edit</button>
+            <button className="submit-btn" type="submit" form="editor" onClick={(e) => handleSubmit('open', e)}>Submit</button>
           </div>
-          <div>
-            <p>Phone: </p>
-            <p>{info.phone}</p>
-          </div>
+        </header>
+        <main className="content">
+          <section>
+            <h2 className="user-name user-info">{info.userName}</h2>
+            <div>
+              <p>Email: </p>
+              <p className='user-info'>{info.email}</p>
+            </div>
+            <div>
+              <p>Phone: </p>
+              <p>{info.phone}</p>
+            </div>
           </section>
           <section>
             <h2>Educational experience</h2>
             <div>
               <p>School name: </p>
-              <p>{info.schoolName}</p>
+              <p className='user-info'>{info.schoolName}</p>
             </div>
             <div>
               <p>Title of study: </p>
-              <p>{info.titleOfStudy}</p>
+              <p className='user-info'>{info.titleOfStudy}</p>
             </div>
             <div>
               <div>
@@ -192,19 +196,19 @@ function Resume() {
               </div>
             </div>
           </section>
-          <section className="practical-section">
+          <section>
             <h2>Practical experience</h2>
             <div>
               <p>Company name: </p>
-              <p>{info.companyName}</p>
+              <p className='user-info'>{info.companyName}</p>
             </div>
             <div>
               <p>Position title: </p>
-              <p>{info.positionTitle}</p>
+              <p className='user-info'>{info.positionTitle}</p>
             </div>
             <div>
               <p>Main responsibilities: </p>
-              <p>{info.mainResponsibilities}</p>
+              <p className='user-info'>{info.mainResponsibilities}</p>
             </div>
             <div>
               <div>
@@ -217,13 +221,11 @@ function Resume() {
               </div>
             </div>
           </section>
-        </div>
-        <div className="link-container">
+        </main>
+        <footer className="footer">
           <a className="link" href="https://daik102.github.io/homepage/" target="_blank">2026 Daik</a>
-        </div>
+        </footer>
       </div>
     </>
   );
 }
-
-export default Resume
