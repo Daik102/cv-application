@@ -10,9 +10,11 @@
 }
 
 :root {
-  --text: #222;
   --bg: #777;
+  --text: #222;
   --main: aliceblue;
+  --accent: orangered;
+  --transparent: #0000;
   --backdrop: rgba(0, 0, 0, 0.4);
 }
 
@@ -23,8 +25,20 @@ html {
 }
 
 input,
+select,
 button {
   font-family: inherit;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 7.2rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1.8rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
 }
 
 body {
@@ -43,9 +57,8 @@ dialog {
   left: 0;
   width: 100%;
   max-width: 44rem;
-  min-height: 48rem;
   margin: 0;
-  padding: 2.4rem 0.4rem 2.4rem 2rem;
+  padding: 2.8rem 0.4rem 2.8rem 2rem;
   transform: translateX(-100%);
   transition: transform 0.4s ease-in-out, 
               overlay 0.4s ease-in-out allow-discrete, 
@@ -83,7 +96,8 @@ dialog {
 }
 
 .edit-dialog label,
-.edit-dialog input {
+.edit-dialog input,
+.edit-dialog select {
   font-size: 1.8rem;
 }
 
@@ -91,41 +105,56 @@ dialog {
   padding: 0 0.2rem;
 }
 
+.edit-dialog select {
+  width: 7.2rem;
+  margin: 0 0.4rem;
+}
+
 .edit-section {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1.6rem;
 }
 
-.edit-btn-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 2.8rem;
-}
-
-h3 {
+.edit-section-title {
   margin: 2rem 0 0.4rem;
   font-size: 2.2rem;
 }
 
-#date-of-study-from,
-#date-of-study-to,
-#date-of-work-from,
-#date-of-work-to {
-  width: 6.8rem;
+.submit-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5.2rem;
+  margin-top: 3.6rem;
+  padding-right: 1.2rem;
 }
 
-.do-edit-btn,
+.close-edit-btn,
 .reset-btn {
-  background-color: var(--main);
+  background-color: var(--transparent);
+  border: 0.1rem solid var(--text);
+}
+
+.submit-btn {
+  width: 10rem;
+  padding: 0.8rem 1.6rem;
+  font-weight: 600;
+  color: var(--main);
+  background-color: var(--accent);
+  border: none;
 }
 
 .message-dialog {
-  margin: auto;
-  padding: 9.6rem 0 2.4rem;
   width: 100%;
   max-width: 40rem;
   height: 28rem;
+  margin: auto;
+  padding: 9.6rem 0 2.8rem;
+}
+
+.message-dialog::backdrop {
+  background-color: var(--backdrop);
 }
 
 .message-dialog form,
@@ -142,19 +171,19 @@ h3 {
 
 .message-container {
   gap: 1.2rem;
-  
 }
 
 .success-message {
-  font-size: 2.6rem;
+  font-size: 2.8rem;
 }
 
 .notice-message {
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
 
-.close-btn {
-  background-color: var(--main);
+.close-message-btn {
+  background-color: var(--transparent);
+  border: 0.1rem solid var(--text);
 }
 
 .wrapper {
@@ -170,39 +199,29 @@ h3 {
   padding: 4rem 0;
 }
 
-h1 {
+.app-title {
   font-size: 4rem;
   color: var(--main);
 }
 
-.btn-container {
+.edit-btn-container {
   display: flex;
   justify-content: center;
-  gap: 2.8rem;
   margin: 4rem 0 2.4rem;
 }
 
-button {
+.edit-btn {
+  width: 8rem;
   padding: 0.8rem 1.6rem;
   font-weight: 600;
-  font-size: 2rem;
-  border: none;
-  border-radius: 0.8rem;
-  cursor: pointer;
-}
-
-.edit-btn {
-  background-color: var(--main);
-}
-
-.submit-btn {
   color: var(--main);
   background-color: var(--text);
+  border: none;
 }
 
 .content {
   width: 100%;
-  padding: 2rem 3.6rem;
+  padding: 2rem;
   background-color: var(--main);
 }
 
@@ -210,7 +229,7 @@ section {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  margin: 4.8rem 0;
+  margin: 4.4rem 0;
 }
 
 section div {
@@ -225,7 +244,7 @@ section p {
   text-wrap: nowrap;
 }
 
-h2 {
+.section-title {
   margin-bottom: 0.8rem;
   font-size: 2.4rem;
 }
@@ -239,12 +258,9 @@ h2 {
 .user-name {
   height: 4.4rem;
   margin-bottom: 2rem;
+  font-weight: 700;
   font-size: 3.2rem;
   border-bottom: 0.2rem solid var(--text);
-}
-
-.user-date {
-  width: 4.8rem;
 }
 
 .footer {
@@ -264,16 +280,13 @@ h2 {
   }
 }
 
-/* Tablets */
+/* Tablets and Desktops */
 @media screen and (min-width: 48em) {
   html {
     font-size: 62.5%;
   }
-}
 
-/* Landscape */
-@media screen and (orientation: landscape) {
-  .edit-dialog {
-    min-height: 100vh;
+  .content {
+    padding: 2rem 3.2rem;
   }
 }
